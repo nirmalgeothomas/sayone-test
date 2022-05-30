@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SCM | Add Event</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> -->
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/add_event.css' %}" />
+  </head>
+  <body>
+    <div class="container-fluid header text-center">Manage Event</div>
+
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 box">
+          Add Event
+
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="inputbox">
+                <form
+                  action="{% url 'scmapp:db_add_event' %}"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  {% csrf_token %} Name of event<br />
+                  <input
+                    type="text"
+                    name="name"
+                    autocomplete="off"
+                    required
+                  /><br />
+
+                  Start Date<br />
+                  <input
+                    type="date"
+                    name="start_date"
+                    autocomplete="off"
+                    required
+                  /><br />
+
+                  End Date<br />
+                  <input
+                    type="date"
+                    name="end_date"
+                    autocomplete="off"
+                    required
+                  /><br />
+
+                  Title<br />
+                  <input type="text" name="title" autocomplete="off" required />
+
+                  Description<br />
+                  <input
+                    type="text"
+                    name="description"
+                    autocomplete="off"
+                    required
+                  />
+
+                  Location<br />
+                  <input
+                    type="text"
+                    name="location"
+                    autocomplete="off"
+                    required
+                  />
+
+                  Image<br />
+                  <input
+                    type="file"
+                    name="image"
+                    autocomplete="off"
+                    style="border: none"
+                    required
+                  />
+
+                  <br /><br />
+                  Category<br />
+
+                  <select name="category">
+                    Category
+                    <option disabled="true" selected>-------</option>
+                    <option>choice 1</option>
+                    <option>choice 2</option>
+                    <option>choice 3</option>
+                    <option>choice 4</option>
+                  </select>
+
+                  <br /><br />
+
+                  <div class="footer">
+                    <input type="reset" value="Reset" name="submit" />
+                    <input type="submit" value="Add" name="submit" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <a href="{% url 'scmapp:admin_event' %}">Back</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

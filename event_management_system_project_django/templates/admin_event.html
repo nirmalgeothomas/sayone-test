@@ -1,0 +1,113 @@
+{% extends 'base2.html' %} {% block body %}
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Events</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> -->
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/admin_event.css' %}" />
+  </head>
+  <body>
+    <div class="container-fluid header text-center">Manage Events</div>
+    <div class="row">
+      <div class="col">
+        <div class="card card-body">
+          <form method="get">
+            {{myFilter.form}}
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container box">
+      <a href="add_event.php"
+        ><button style="float: right">Add Event</button></a
+      >
+      Event Details<br />
+      <span style="font-size: 16px; color: gray"
+        >Click on the respective event to manage</span
+      ><br />
+
+      <table>
+        <tr>
+          <td>No</td>
+          <td>Image</td>
+          <td>Event name</td>
+          <td>Start Date</td>
+          <td>End Date</td>
+          <td>Category</td>
+          <td>Title</td>
+          <td>Description</td>
+          <td>Location</td>
+          <td>Paid</td>
+
+          <td>Published</td>
+          <td>Update</td>
+          <td>Delete</td>
+        </tr>
+
+        {% for e in myFilter.qs %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <img src="{{ e.image.url }}" style="width: 50px; height: 50px" />
+          </td>
+          <td>{{ e.name}}</td>
+          <td>{{ e.start_date }}</td>
+          <td>{{ e.end_date }}</td>
+          <td>{{ e.category }}</td>
+          <td>{{ e.title}}</td>
+          <td>{{ e.description }}</td>
+          <td>{{ e.location }}</td>
+          <td>{{ e.paid }}</td>
+          <td>{{ e.published }}</td>
+
+          <td><a href="{% url 'scmapp:update_event' id=e.eid %}">Update</a></td>
+          <td>
+            <a href="{% url 'scmapp:db_delete_event' id=e.eid %}">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="11" align="center">No Events</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <div class="footer">
+        <a href="{% url 'scmapp:admin_home' %}"><button>Back</button></a>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
+  </body>
+</html>
+{%endblock%}
